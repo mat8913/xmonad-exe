@@ -8,8 +8,6 @@ if [ "$#" -ne 1 ]; then
 	exit 1
 fi
 
-TMP="$(mktemp -p "$HOME"/.cache)"
-
 stack build &&
 rm -f "$1" &&
 cp "$SRC_DIR/$(stack path --dist-dir)/build/xmonad-exe/xmonad-exe" "$1"
