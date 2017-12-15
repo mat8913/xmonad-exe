@@ -1,13 +1,12 @@
 #!/bin/sh
 
 SRC_DIR="$HOME/git/xmonad-exe"
-export STACK_YAML="$SRC_DIR/stack.yaml"
 
 if [ "$#" -ne 1 ]; then
 	echo "Invalid usage."
 	exit 1
 fi
 
-stack build &&
+(cd "$SRC_DIR" && cabal new-build) &&
 rm -f "$1" &&
-cp "$SRC_DIR/$(stack path --dist-dir)/build/xmonad-exe/xmonad-exe" "$1"
+find "$SRC_DIR/dist-newstyle" -type f -executable -name xmonad-exe -exec cp '{}' "$1" ';'
